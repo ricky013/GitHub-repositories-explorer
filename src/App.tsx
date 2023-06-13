@@ -1,68 +1,58 @@
 import React, { ReactElement, useState } from 'react'
-import logo from './logo.svg'
-import viteLogo from './vite.svg'
-import tailwindLogo from './tailwind.svg'
+import { InputText } from 'primereact/inputtext'
+import { Button } from 'primereact/button'
+import { Accordion, AccordionTab } from 'primereact/accordion'
+import CardRepo from './components/molecules/CardRepo'
 
 function App(): ReactElement {
-  const [count, setCount] = useState(0)
+  const [value, setValue] = useState<string>('')
 
   return (
-    <div className="p-20 border shadow-xl border-gray-50 rounded-xl">
-      <header>
-        <div className="flex justify-center">
-          <img src={viteLogo} className="w-32 h-32" alt="vite logo" />
-          <img src={logo} className="w-32 h-32" alt="React logo" />
-          <img
-            src={tailwindLogo}
-            className="w-32 h-32"
-            alt="Tailwind CSS logo"
+    <div className="w-full h-full flex justify-center">
+      <div className="p-3 shadow-lg w-full md:w-3/4">
+        <div className="mb-3">
+          <InputText
+            className="w-full mb-3"
+            value={value}
+            placeholder="Enter username"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setValue(e.target.value)
+            }
           />
         </div>
-        <p className="pb-3 text-2xl">Hello Vite + React + Tailwind CSS!</p>
-        <p>
-          <button
-            className="pt-1 pb-1 pl-2 pr-2 text-sm text-purple-100 bg-purple-400 rounded"
-            onClick={() => setCount((count) => count + 1)}
-          >
-            count is: {count}
-          </button>
-        </p>
-        <p className="pt-3 pb-3">
-          Edit{' '}
-          <code className="border border-1 pl-1 pr-1 pb-0.5 pt-0.5 rounded border-purple-400 font-mono text-sm bg-purple-100 text-purple-900">
-            src/App.tsx
-          </code>{' '}
-          and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="text-purple-400 underline"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="text-purple-400 underline"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-          {' | '}
-          <a
-            className="text-purple-400 underline"
-            href="https://tailwindcss.com/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Tailwind CSS Docs
-          </a>
-        </p>
-      </header>
+        <Button label="Search" severity="info" className="w-full" />
+        <div className="list-user mt-3">
+          <Accordion>
+            <AccordionTab header="Header I">
+              <CardRepo />
+            </AccordionTab>
+            <AccordionTab header="Header II">
+              <p className="m-0">
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+                quae ab illo inventore veritatis et quasi architecto beatae
+                vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+                voluptas sit aspernatur aut odit aut fugit, sed quia
+                consequuntur magni dolores eos qui ratione voluptatem sequi
+                nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
+                modi.
+              </p>
+            </AccordionTab>
+            <AccordionTab header="Header III">
+              <p className="m-0">
+                At vero eos et accusamus et iusto odio dignissimos ducimus qui
+                blanditiis praesentium voluptatum deleniti atque corrupti quos
+                dolores et quas molestias excepturi sint occaecati cupiditate
+                non provident, similique sunt in culpa qui officia deserunt
+                mollitia animi, id est laborum et dolorum fuga. Et harum quidem
+                rerum facilis est et expedita distinctio. Nam libero tempore,
+                cum soluta nobis est eligendi optio cumque nihil impedit quo
+                minus.
+              </p>
+            </AccordionTab>
+          </Accordion>
+        </div>
+      </div>
     </div>
   )
 }
