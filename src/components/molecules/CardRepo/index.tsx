@@ -1,5 +1,9 @@
 import { ReactElement, useState } from 'react'
 
+interface UserProps {
+  title: string
+}
+
 function CardRepo(): ReactElement {
   return (
     <>

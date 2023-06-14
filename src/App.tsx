@@ -1,11 +1,31 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
 import { Accordion, AccordionTab } from 'primereact/accordion'
 import CardRepo from './components/molecules/CardRepo'
+import { getAPI } from './services/API'
+
+interface UserData {
+  name: string
+  title: string
+  id: string
+  login: string
+}
 
 function App(): ReactElement {
   const [value, setValue] = useState<string>('')
+  const [listData, setListData] = useState<UserData[]>([])
+
+  const getData = () => {
+    getAPI('search/users', `q=${value}`).then((res) => {
+      if (res.status == 200) {
+        setListData(res.data.items)
+        console.log(res)
+      } else {
+        console.log(res)
+      }
+    })
+  }
 
   return (
     <div className="w-full h-full flex justify-center">
@@ -20,37 +40,24 @@ function App(): ReactElement {
             }
           />
         </div>
-        <Button label="Search" severity="info" className="w-full" />
+        <Button
+          label="Search"
+          severity="info"
+          className="w-full"
+          onClick={(e) => getData()}
+        />
         <div className="list-user mt-3">
-          <Accordion>
-            <AccordionTab header="Header I">
-              <CardRepo />
-            </AccordionTab>
-            <AccordionTab header="Header II">
-              <p className="m-0">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-                quae ab illo inventore veritatis et quasi architecto beatae
-                vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
-                voluptas sit aspernatur aut odit aut fugit, sed quia
-                consequuntur magni dolores eos qui ratione voluptatem sequi
-                nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
-                modi.
-              </p>
-            </AccordionTab>
-            <AccordionTab header="Header III">
-              <p className="m-0">
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui
-                blanditiis praesentium voluptatum deleniti atque corrupti quos
-                dolores et quas molestias excepturi sint occaecati cupiditate
-                non provident, similique sunt in culpa qui officia deserunt
-                mollitia animi, id est laborum et dolorum fuga. Et harum quidem
-                rerum facilis est et expedita distinctio. Nam libero tempore,
-                cum soluta nobis est eligendi optio cumque nihil impedit quo
-                minus.
-              </p>
-            </AccordionTab>
-          </Accordion>
+          {listData?.length && listData.length > 1 ? (
+            <Accordion>
+              {listData.map((UserData) => (
+                <AccordionTab key={UserData.login} header={UserData.login}>
+                  <CardRepo />
+                </AccordionTab>
+              ))}
+            </Accordion>
+          ) : (
+            'Data Kosong'
+          )}
         </div>
       </div>
     </div>
