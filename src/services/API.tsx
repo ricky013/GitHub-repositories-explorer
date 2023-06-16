@@ -18,17 +18,15 @@ const getConfig: Params = {
 export const getAPI = async (url: string, data: any): Promise<any> => {
   return await axios({
     ...getConfig,
-    url: `${getConfig.baseUrl}/${url}?${data}&per_page=5`
+    url: `${getConfig.baseUrl}/${url}${data}`
   })
     .then((response) => {
-      console.log(response)
       return {
         status: response.status,
         data: response.data
       }
     })
     .catch((error) => {
-      console.log(error)
       return {
         status: error.status,
         data: error.response

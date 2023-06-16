@@ -1,21 +1,20 @@
-import { ReactElement, useState } from 'react'
-
-interface UserProps {
-  title: string
+interface RepoData {
+  name: string
 }
 
-function CardRepo(): ReactElement {
+const CardRepo = (data: RepoData) => {
   return (
-    <>
+    <div className="p-3 m-3 shadow rounded">
       <div className="columns-2 font-bold">
-        <h1 className="w-1/2">Repository Title</h1>
+        <h1>{data.data.name}</h1>
         <span className="flex items-center justify-end">
-          <h1 className="m-2">Rating</h1>
+          <h1 className="m-2">{data.data.stargazers_count}</h1>
           <i className="pi pi-star-fill"></i>
         </span>
       </div>
-      <div className="description">Descrip</div>
-    </>
+      <div className="description">{data.data.description || '-'}</div>
+    </div>
   )
 }
+
 export default CardRepo
