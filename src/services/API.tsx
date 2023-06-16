@@ -10,7 +10,7 @@ interface Params {
 const getConfig: Params = {
   baseUrl: 'https://api.github.com',
   headers: {
-    Authorization: ''
+    Authorization: process.env.REACT_APP_GITHUB_TOKEN
   },
   method: 'get'
 }

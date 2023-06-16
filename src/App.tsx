@@ -40,6 +40,7 @@ function App(): ReactElement {
   }
 
   const getDataRepos = (index: number) => {
+    setActiveIndex(0)
     if (index != activeIndex) {
       setActiveIndex(index)
       setIsLoadingRepo(true)
