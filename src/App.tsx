@@ -12,6 +12,8 @@ interface UserData {
 }
 interface RepoData {
   name: string
+  stargazers_count: number
+  description: string
 }
 
 function App(): ReactElement {
@@ -19,7 +21,7 @@ function App(): ReactElement {
   const [isLoadingRepo, setIsLoadingRepo] = useState<boolean>(false)
   const [value, setValue] = useState<string>('')
   const [valueLabel, setValueLabel] = useState<string>('')
-  const [activeIndex, setActiveIndex] = useState<number>(null)
+  const [activeIndex, setActiveIndex] = useState<number>('')
   const [listData, setListData] = useState<UserData[]>([])
   const [listRepo, setListRepo] = useState<RepoData[]>([])
   const msgs = useRef(null)
@@ -59,7 +61,7 @@ function App(): ReactElement {
 
   useEffect(() => {
     if (listData.length < 1 && value == '') {
-      return msgs.current.show({
+      return msgs?.current?.show({
         sticky: true,
         severity: 'info',
         detail: 'Please search for result.',
@@ -68,7 +70,7 @@ function App(): ReactElement {
     }
 
     if (listData.length < 1 && value != '') {
-      return msgs.current.show({
+      return msgs?.current?.show({
         sticky: true,
         severity: 'error',
         detail: 'Result not found',
@@ -79,7 +81,7 @@ function App(): ReactElement {
 
   useEffect(() => {
     if (listRepo?.length < 1 && value != '') {
-      return msgsRepo?.current.show({
+      return msgsRepo?.current?.show({
         sticky: true,
         severity: 'error',
         detail: 'Repo empty.',
@@ -132,7 +134,11 @@ function App(): ReactElement {
                       {!isLoadingRepo ? (
                         listRepo?.length && listRepo?.length >= 1 ? (
                           listRepo.map((RepoData) => (
-                            <CardRepo data={RepoData} />
+                            <CardRepo
+                              name={RepoData.name}
+                              stargazers_count={RepoData.stargazers_count}
+                              description={RepoData.description}
+                            />
                           ))
                         ) : (
                           <Messages ref={msgsRepo} />
