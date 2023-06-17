@@ -1,12 +1,12 @@
-# vite React TypeScript tailwindcss starter
+# Github Repositories Explorer
 
-Template for vite, React + tailwindcss + TypeScript projects with some tools preconfigured.
+Use boilerplate vite React + tailwindcss + TypeScript projects with some tools preconfigured.
 
 ## About
 
-Template for vite, React + tailwindcss + TypeScript projects with some tools preconfigured.
+This app can search users github by username.
 
-![Screenshot](assets/screenshot.png)
+![Screenshot](assets/home.png)
 
 ### Libraries
 
@@ -16,6 +16,7 @@ Template for vite, React + tailwindcss + TypeScript projects with some tools pre
   - [tailwindcss forms plugin](https://tailwindcss-forms.vercel.app/)
 - [TypeScript 4.9.5](https://www.typescriptlang.org/)
 - [vite 4](https://vitejs.dev/)
+- [primereact](https://primereact.org/)
 
 ### Tools
 
@@ -28,10 +29,6 @@ Template for vite, React + tailwindcss + TypeScript projects with some tools pre
 - [VS Code settings](https://code.visualstudio.com/)
 
 ## Usage
-
-Create a new project from this template by clicking the "Use this template" button:
-
-![](assets/template-usage.png)
 
 ```bash
 yarn
