@@ -21,15 +21,16 @@ function App(): ReactElement {
   const [isLoadingRepo, setIsLoadingRepo] = useState<boolean>(false)
   const [value, setValue] = useState<string>('')
   const [valueLabel, setValueLabel] = useState<string>('')
-  const [activeIndex, setActiveIndex] = useState<number>('')
+  const [activeIndex, setActiveIndex] = useState<number>(6)
   const [listData, setListData] = useState<UserData[]>([])
   const [listRepo, setListRepo] = useState<RepoData[]>([])
-  const msgs = useRef(null)
-  const msgsRepo = useRef(null)
+  const msgs = useRef<Messages>(null)
+  const msgsRepo = useRef<Messages>(null)
 
   const getData = (e: any) => {
     e.preventDefault()
     setIsLoading(true)
+    setActiveIndex(6)
     getAPI('search/users?', `q=${value}&per_page=5`).then((res) => {
       if (res.status == 200) {
         setValueLabel(value)
@@ -41,12 +42,12 @@ function App(): ReactElement {
     })
   }
 
-  const getDataRepos = (index: number) => {
-    setActiveIndex(0)
-    if (index != activeIndex) {
-      setActiveIndex(index)
+  const getDataRepos = (index: any) => {
+    let choosedIndex = index.index
+    if (choosedIndex != activeIndex) {
+      setActiveIndex(choosedIndex)
       setIsLoadingRepo(true)
-      let name = listData[index]?.login
+      let name = listData[choosedIndex]?.login
 
       getAPI('users/', `${name}/repos`).then((res) => {
         if (res.status == 200) {
@@ -122,7 +123,7 @@ function App(): ReactElement {
                   className="mt-3 h-[67vh] overflow-auto focus:outline-none p-[inherit] transition-all"
                   activeIndex={activeIndex}
                   onTabChange={(e) => {
-                    getDataRepos(e.index)
+                    getDataRepos(e)
                   }}
                 >
                   {listData.map((UserData) => (
